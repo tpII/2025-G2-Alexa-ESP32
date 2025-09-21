@@ -1,0 +1,44 @@
+esphome:
+  name: esphome-web-05a918
+  friendly_name: sensor-dormitorio
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino  # Cambiado de esp-idf a arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "QTnbffyRX0mLTXH+4i2AoRhIsYHiPPm2VbPk2fULoFw="
+
+ota:
+  - platform: esphome
+    password: "c55e3b1b79f789c539f8cf72d85ab668"
+
+wifi:
+  ssid: "TeleCentro-073c"
+  password: "CZMXCT2YDMK"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Sensor-Dormitorio"
+    password: "1GCQ5JgsWIeo"
+
+captive_portal:
+
+# Agregar sensor DHT
+sensor:
+  - platform: dht
+    pin: GPIO13
+    model: DHT11  # o DHT11 según tu sensor
+    temperature:
+      name: "Temperatura Dormitorio"
+      accuracy_decimals: 1
+    humidity:
+      name: "Humedad Dormitorio"
+      accuracy_decimals: 1
+    update_interval: 60s

@@ -1,0 +1,45 @@
+esphome:
+  name: mi-esp32
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# API para integración con Home Assistant
+api:
+
+# Permite actualizar el firmware sin USB (OTA)
+ota:
+  - platform: esphome
+
+# Conexión WiFi: solo AP de fallback
+wifi:
+  ap:
+    ssid: "ESP32_Config"
+    password: "12345678"
+
+# Portal cautivo para configurar WiFi manualmente
+captive_portal:
+
+# LED integrado en el pin GPIO2
+output:
+  - platform: gpio
+    pin: 2
+    id: led_builtin
+
+light:
+  - platform: binary
+    name: "Luz de prueba"
+    id: luz_prueba
+    output: led_builtin
+
+# Intervalo para parpadear el LED
+interval:
+  - interval: 1s
+    then:
+      - light.toggle: luz_prueba
+      - logger.log: "LED toggled!"

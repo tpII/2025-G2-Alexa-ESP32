@@ -1,0 +1,73 @@
+# Home Assistant files
+config/home-assistant.log*
+config/home-assistant_v2.db*
+config/.storage/
+config/tts/
+config/deps/
+config/www/
+config/custom_components/
+config/.cloud/
+config/.uuid
+config/known_devices.yaml
+config/ip_bans.yaml
+
+# ESPHome build files and packages
+config/.esphome/
+config/.platformio/
+
+# Secrets files
+**/secrets.yaml
+*.key
+*.pem
+*.p12
+
+# ESPHome secrets
+espConfig/secrets.yaml
+
+# ngrok configuration
+ngrok/ngrok.yml
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.env
+
+# Docker
+.dockerignore
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

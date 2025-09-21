@@ -1,0 +1,49 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ./config:/config
+    networks:
+      - ha-network
+    ports:
+      - "8123:8123"
+
+  ngrok:
+    container_name: ngrok
+    image: ngrok/ngrok:latest
+    restart: unless-stopped
+    command: start --all --config /etc/ngrok/ngrok.yml --log stdout
+    volumes:
+      - ./ngrok/ngrok.yml:/etc/ngrok/ngrok.yml
+    networks:
+      - ha-network
+    depends_on:
+      - homeassistant
+    ports:
+      - "4040:4040"  # Dashboard web de ngrok
+
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ./espConfig:/config   # Donde se guardan los .yaml
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - ha-network
+    ports:
+      - "6052:6052"   # Puerto web del dashboard
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"  # Cambiá según el puerto del ESP32
+
+networks:
+  ha-network:
+    driver: bridge
