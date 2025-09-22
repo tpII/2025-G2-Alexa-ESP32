@@ -5,7 +5,7 @@ esphome:
 esp32:
   board: esp32dev
   framework:
-    type: arduino  # Cambiado de esp-idf a arduino
+    type: arduino # Cambiado de esp-idf a arduino
 
 # Enable logging
 logger:
@@ -26,7 +26,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Sensor-Dormitorio"
-    password: "1GCQ5JgsWIeo"
+    password: "12345678"
 
 captive_portal:
 
@@ -34,7 +34,7 @@ captive_portal:
 sensor:
   - platform: dht
     pin: GPIO13
-    model: DHT11  # o DHT11 según tu sensor
+    model: DHT11 # o DHT11 según tu sensor
     temperature:
       name: "Temperatura Dormitorio"
       accuracy_decimals: 1
