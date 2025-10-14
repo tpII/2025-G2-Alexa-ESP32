@@ -20,8 +20,8 @@ ota:
     password: "c55e3b1b79f789c539f8cf72d85ab668"
 
 wifi:
-  ssid: "TeleCentro-073c"
-  password: "CZMXCT2YDMK"
+  ssid: "Wifi-Name"
+  password: "password"
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
