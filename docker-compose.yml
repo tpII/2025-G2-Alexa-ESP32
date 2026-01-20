@@ -1,0 +1,59 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ./config:/config
+    networks:
+      - ha-network
+    ports:
+      - "8123:8123"
+
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome:latest
+    restart: unless-stopped
+    environment:
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ./esphome:/config
+    networks:
+      - ha-network
+    ports:
+      - "6052:6052"
+
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    networks:
+      - ha-network
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+  ngrok:
+    container_name: ngrok
+    image: ngrok/ngrok:latest
+    restart: unless-stopped
+    depends_on:
+      - homeassistant
+    networks:
+      - ha-network
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040"
+    command: http homeassistant:8123 --log=stdout --host-header=rewrite
+
+networks: 
+  ha-network: 
+    driver: bridge

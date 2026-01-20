@@ -1,0 +1,52 @@
+esphome:
+  name: esp8266-example
+  friendly_name: esp8266-example
+
+esp8266:
+  board: nodemcuv2
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  use_address: !secret wifi_static_ip
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esp8266 Fallback Hotspot"
+    password: !secret wifi_ap_password
+
+mqtt:
+  broker: !secret mqtt_broker_ip
+  port: !secret mqtt_port
+  topic_prefix: dht_mqtt
+  discovery: true
+  discovery_prefix: homeassistant
+
+# Sensor DHT11
+sensor:
+  - platform: dht
+    pin: D5          # ⚠️ Cambiá el pin si usás otro (GPIO2 en el ESP-01)
+    model: DHT11
+    temperature:
+      name: "Temperatura DHT11"
+      id: dht_temp
+      accuracy_decimals: 1
+    humidity:
+      name: "Humedad DHT11"
+      id: dht_hum
+      accuracy_decimals: 1
+    update_interval: 10s
+
+captive_portal:
+

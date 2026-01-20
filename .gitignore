@@ -1,0 +1,7 @@
+.env
+secrets.yaml
+config/
+esphome/
+mosquitto/*
+!mosquitto/config/
+.esphome
