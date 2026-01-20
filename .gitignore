@@ -4,3 +4,4 @@ config/
 esphome/
 mosquitto/*
 !mosquitto/config/
+.esphome
